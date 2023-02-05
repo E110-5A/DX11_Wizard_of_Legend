@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Client", "Client\Client.vcxproj", "{1C5890CE-1907-4BA1-A989-787B6B849C10}"
+	ProjectSection(ProjectDependencies) = postProject
+		{044D5252-D82B-46CA-BB0D-7A04E64B4533} = {044D5252-D82B-46CA-BB0D-7A04E64B4533}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ENGINE_SOURCE", "ENGINE_SOURCE\ENGINE_SOURCE.vcxproj", "{044D5252-D82B-46CA-BB0D-7A04E64B4533}"
 EndProject

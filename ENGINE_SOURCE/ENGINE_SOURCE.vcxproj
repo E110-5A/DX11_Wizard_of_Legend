@@ -18,6 +18,33 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CommonInclude.h" />
+    <ClInclude Include="jsApplication.h" />
+    <ClInclude Include="jsEngine.h" />
+    <ClInclude Include="jsEntity.h" />
+    <ClInclude Include="jsEnums.h" />
+    <ClInclude Include="jsGraphicDevice_DX11.h" />
+    <ClInclude Include="jsGraphics.h" />
+    <ClInclude Include="jsInput.h" />
+    <ClInclude Include="jsMath.h" />
+    <ClInclude Include="jsResource.h" />
+    <ClInclude Include="jsResources.h" />
+    <ClInclude Include="jsTime.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="jsApplication.cpp" />
+    <ClCompile Include="jsEntity.cpp" />
+    <ClCompile Include="jsGraphicDevice_DX11.cpp" />
+    <ClCompile Include="jsInput.cpp" />
+    <ClCompile Include="jsMath.cpp" />
+    <ClCompile Include="jsResource.cpp" />
+    <ClCompile Include="jsResources.cpp" />
+    <ClCompile Include="jsTime.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="jsMath.inl" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -70,6 +97,12 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\Lib\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\Lib\</OutDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>

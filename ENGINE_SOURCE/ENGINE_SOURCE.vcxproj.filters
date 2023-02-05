@@ -1,2 +1,95 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" />
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="jsGraphicDevice_DX11.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="jsGraphics.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonInclude.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="jsApplication.h">
+      <Filter>High Level Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="jsEngine.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="jsEnums.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="jsInput.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="jsResource.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="jsResources.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="jsTime.h">
+      <Filter>Time</Filter>
+    </ClInclude>
+    <ClInclude Include="jsMath.h">
+      <Filter>Common\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="jsEntity.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="jsGraphicDevice_DX11.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="jsApplication.cpp">
+      <Filter>High Level Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="jsInput.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="jsResource.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="jsResources.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="jsTime.cpp">
+      <Filter>Time</Filter>
+    </ClCompile>
+    <ClCompile Include="jsMath.cpp">
+      <Filter>Common\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="jsEntity.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{7fa48200-dd75-43dd-a4c9-bfbe61ac73ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{4a2e9d96-bd05-400d-ae17-c1f774862c22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="High Level Interface">
+      <UniqueIdentifier>{8e67625e-eaaf-46a1-921d-5a6727f51c59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{acde7bee-443d-485a-a2af-ca18492f2c54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Time">
+      <UniqueIdentifier>{0b23805a-1d5a-4dbe-a20d-d5e5db1b42ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{7809fe73-fa9d-41a3-87ad-c47a1b6f55f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Math">
+      <UniqueIdentifier>{ef054d20-5976-4d6a-9865-5310c06c2734}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="jsMath.inl">
+      <Filter>Common\Math</Filter>
+    </None>
+  </ItemGroup>
+</Project>
