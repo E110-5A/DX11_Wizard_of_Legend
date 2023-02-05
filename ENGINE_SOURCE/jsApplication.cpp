@@ -26,10 +26,14 @@ namespace js
 	}
 	void Application::Render()
 	{
+		graphicDevice->Draw();
 	}
 
 	void Application::Run()
 	{
+		Update();
+		FixedUpdate();
+		Render();
 	}
 	void Application::Release()
 	{
