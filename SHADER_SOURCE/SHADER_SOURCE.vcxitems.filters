@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="VertexShader">
+      <UniqueIdentifier>{cc410ec3-0d1c-47fa-949e-bc5769fef358}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PixleShader">
+      <UniqueIdentifier>{345c51ed-28cd-49f5-88b4-5e77be6652cf}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
