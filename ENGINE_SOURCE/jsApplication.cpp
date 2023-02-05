@@ -1,4 +1,5 @@
 #include "jsApplication.h"
+#include "jsRenderer.h"
 
 namespace js
 {
@@ -17,6 +18,7 @@ namespace js
 
 	void Application::Initalize()
 	{
+		renderer::Initialize();
 	}
 	void Application::Update()
 	{
@@ -37,6 +39,7 @@ namespace js
 	}
 	void Application::Release()
 	{
+		renderer::Release();
 	}
 
 	void Application::SetWindow(HWND hwnd, UINT width, UINT height)
@@ -49,6 +52,7 @@ namespace js
 
 			ValidationMode validationMode = ValidationMode::Disabled;
 			graphicDevice = std::make_unique<GraphicDevice_DX11>();
+			graphics::GetDevice() = graphicDevice.get();
 		}
 
 		RECT rect = { 0, 0, (LONG)width, (LONG)height };

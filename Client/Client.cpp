@@ -62,6 +62,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
         }
     }
 
+    application.Release();
+
     return (int) msg.wParam;
 }
 
@@ -107,6 +109,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    }
 
    application.SetWindow(hWnd, WindowWidth, WindowHeight);
+   application.Initalize();
 
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);

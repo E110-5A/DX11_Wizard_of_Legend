@@ -8,4 +8,12 @@
       <UniqueIdentifier>{345c51ed-28cd-49f5-88b4-5e77be6652cf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="$(MSBuildThisFileDirectory)TriangleVS.hlsl">
+      <Filter>VertexShader</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)TrianglePS.hlsl">
+      <Filter>PixleShader</Filter>
+    </FxCompile>
+  </ItemGroup>
 </Project>

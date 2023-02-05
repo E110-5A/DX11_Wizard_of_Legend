@@ -37,6 +37,9 @@
     <ClInclude Include="jsEntity.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="jsRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jsGraphicDevice_DX11.cpp">
@@ -63,6 +66,9 @@
     <ClCompile Include="jsEntity.cpp">
       <Filter>Common</Filter>
     </ClCompile>
+    <ClCompile Include="jsRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">
@@ -85,6 +91,9 @@
     </Filter>
     <Filter Include="Common\Math">
       <UniqueIdentifier>{ef054d20-5976-4d6a-9865-5310c06c2734}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{2fe53ad0-af3b-4d4b-b89e-55471a37b35d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
