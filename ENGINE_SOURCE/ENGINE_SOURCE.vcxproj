@@ -22,6 +22,7 @@
     <ClInclude Include="CommonInclude.h" />
     <ClInclude Include="jsApplication.h" />
     <ClInclude Include="jsComponent.h" />
+    <ClInclude Include="jsConstantBuffer.h" />
     <ClInclude Include="jsEngine.h" />
     <ClInclude Include="jsEntity.h" />
     <ClInclude Include="jsEnums.h" />
@@ -46,6 +47,7 @@
   <ItemGroup>
     <ClCompile Include="jsApplication.cpp" />
     <ClCompile Include="jsComponent.cpp" />
+    <ClCompile Include="jsConstantBuffer.cpp" />
     <ClCompile Include="jsEntity.cpp" />
     <ClCompile Include="jsGameObject.cpp" />
     <ClCompile Include="jsGraphicDevice_DX11.cpp" />

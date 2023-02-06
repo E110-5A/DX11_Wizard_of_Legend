@@ -70,6 +70,7 @@
     <ClInclude Include="jsSceneManager.h">
       <Filter>Scene\Base</Filter>
     </ClInclude>
+    <ClInclude Include="jsConstantBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jsGraphicDevice_DX11.cpp">
@@ -129,6 +130,7 @@
     <ClCompile Include="jsSceneManager.cpp">
       <Filter>Scene\Base</Filter>
     </ClCompile>
+    <ClCompile Include="jsConstantBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">

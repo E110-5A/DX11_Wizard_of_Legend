@@ -8,6 +8,7 @@
 #pragma comment (lib, "d3d11.lib")
 #pragma comment (lib, "d3dcompiler.lib")
 
+using namespace js::enums;
 namespace js::graphics
 {
 	enum class ValidationMode
@@ -26,5 +27,21 @@ namespace js::graphics
 		PS,
 		CS,
 		Count,
+	};
+
+	struct GPUBuffer
+	{
+		enum class eType
+		{
+			Buffer,
+			Texture,
+			UnknownType,
+		} type = eType::UnknownType;
+
+		D3D11_BUFFER_DESC desc;
+		Microsoft::WRL::ComPtr<ID3D11Buffer> buffer;
+
+		GPUBuffer() = default;
+		virtual ~GPUBuffer() = default;
 	};
 }

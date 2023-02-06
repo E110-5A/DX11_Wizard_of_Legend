@@ -1,10 +1,11 @@
 #pragma once
 #include "jsEntity.h"
+#include "jsMath.h"
 
 namespace js
 {
 	using namespace js::enums;
-
+	using namespace js::math;
 	class GameObject;
 	class Component : public Entity
 	{

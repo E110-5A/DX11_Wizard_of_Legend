@@ -52,19 +52,7 @@ namespace js::renderer
 		indexes.push_back(3);
 
 		mesh->CreateIndexBuffer(indexes.data(), indexes.size());
-
-
-
-
-		D3D11_BUFFER_DESC ConstantDesc = {};
-
-		ConstantDesc.ByteWidth = sizeof(math::Vector4);
-		ConstantDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_CONSTANT_BUFFER;
-		ConstantDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
-		ConstantDesc.CPUAccessFlags = D3D11_CPU_ACCESS_FLAG::D3D11_CPU_ACCESS_WRITE;
-
-		graphics::GetDevice()->CreateBuffer(&ConstantDesc, nullptr, constantBuffer.GetAddressOf());
-
+				
 		math::Vector4 pos(0.2f, 0.2f, 0.f, 0.f);
 		graphics::GetDevice()->BindConstantBuffer(constantBuffer.Get(), &pos, sizeof(math::Vector4));
 	}

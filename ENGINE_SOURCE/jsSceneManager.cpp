@@ -1,4 +1,5 @@
 #include "jsSceneManager.h"
+#include "jsTransform.h"
 
 namespace js
 {
@@ -6,6 +7,12 @@ namespace js
 
 	void SceneManager::Initalize()
 	{
+		mPlayScene = new Scene();
+		mPlayScene->Initalize();
+
+		GameObject* obejct = new GameObject();
+		Transform* transform = new Transform();
+
 
 	}
 	void SceneManager::Update()
