@@ -1,0 +1,45 @@
+#pragma once
+#include "jsComponent.h"
+
+namespace js
+{
+	class GameObject
+	{
+	public:
+		enum class eState
+		{
+			Active,
+			Paused,
+			Dead,
+		};
+
+		GameObject();
+		virtual ~GameObject();
+
+		virtual void Initalize();
+		virtual void Update();
+		virtual void FixedUpdate();
+		virtual void Render();
+
+		void AddComponent(Component* component);
+
+		template <typename T>
+		T* GetComponent()
+		{
+			T* retComponent;
+			for (auto component : mComponents)
+			{
+				retComponent = dynamic_cast<T*>(component);
+
+				if (nullptr != retComponent)
+					return retComponent;
+			}
+
+			return nullptr;
+		}
+
+	private:
+		eState mState;
+		std::vector<Component*> mComponents;
+	};
+}

@@ -57,9 +57,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
             }
         }
         else
-        {
             application.Run();
-        }
     }
 
     application.Release();
@@ -116,9 +114,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    return TRUE;
 }
-
-
-
 
 
 

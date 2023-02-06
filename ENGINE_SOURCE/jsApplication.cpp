@@ -1,5 +1,7 @@
 #include "jsApplication.h"
 #include "jsRenderer.h"
+#include "jsTime.h"
+#include "jsInput.h"
 
 namespace js
 {
@@ -18,16 +20,24 @@ namespace js
 
 	void Application::Initalize()
 	{
+		Time::Initialize();
+		Input::Initialize();
+
 		renderer::Initialize();
 	}
 	void Application::Update()
 	{
+		Time::Update();
+		Input::Update();
+
 	}
 	void Application::FixedUpdate()
 	{
 	}
 	void Application::Render()
 	{
+		Time::Render(mHdc);
+
 		graphicDevice->Draw();
 	}
 
@@ -47,6 +57,7 @@ namespace js
 		if (nullptr == graphicDevice)
 		{
 			mHwnd = hwnd;
+			mHdc = GetDC(mHwnd);
 			mWidth = width;
 			mHeight = height;
 

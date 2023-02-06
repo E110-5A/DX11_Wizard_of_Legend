@@ -6,7 +6,7 @@
 
 namespace js::renderer
 {
-#define NumOfVertex 3
+#define NumOfVertex 4
 	struct Vertex
 	{
 		math::Vector3 pos;
@@ -17,6 +17,8 @@ namespace js::renderer
 	extern Vertex vertexes[NumOfVertex];
 
 	extern ID3D11Buffer*		vertexBuffer;
+	extern ID3D11Buffer*		IndexBuffer;
+	extern ID3D11Buffer*		ConstantBuffer;
 	extern ID3DBlob*			errorBlob;
 	extern ID3DBlob*			VSBlob;
 	extern ID3DBlob*			PSBlob;

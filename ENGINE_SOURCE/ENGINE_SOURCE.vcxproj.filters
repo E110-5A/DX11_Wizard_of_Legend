@@ -22,12 +22,6 @@
     <ClInclude Include="jsInput.h">
       <Filter>Input</Filter>
     </ClInclude>
-    <ClInclude Include="jsResource.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="jsResources.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
     <ClInclude Include="jsTime.h">
       <Filter>Time</Filter>
     </ClInclude>
@@ -40,6 +34,42 @@
     <ClInclude Include="jsRenderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="jsResource.h">
+      <Filter>Resource\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="jsResources.h">
+      <Filter>Resource\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="jsComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="jsMeshRenderer.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="jsTransform.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="jsMesh.h">
+      <Filter>Resource\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="jsShader.h">
+      <Filter>Resource\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="jsTexture.h">
+      <Filter>Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="jsScene.h">
+      <Filter>Scene\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="jsGameObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="jsLayer.h">
+      <Filter>Scene\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="jsSceneManager.h">
+      <Filter>Scene\Base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jsGraphicDevice_DX11.cpp">
@@ -50,12 +80,6 @@
     </ClCompile>
     <ClCompile Include="jsInput.cpp">
       <Filter>Input</Filter>
-    </ClCompile>
-    <ClCompile Include="jsResource.cpp">
-      <Filter>Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="jsResources.cpp">
-      <Filter>Resource</Filter>
     </ClCompile>
     <ClCompile Include="jsTime.cpp">
       <Filter>Time</Filter>
@@ -68,6 +92,42 @@
     </ClCompile>
     <ClCompile Include="jsRenderer.cpp">
       <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="jsResource.cpp">
+      <Filter>Resource\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="jsResources.cpp">
+      <Filter>Resource\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="jsComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="jsMeshRenderer.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="jsTransform.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="jsMesh.cpp">
+      <Filter>Resource\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="jsShader.cpp">
+      <Filter>Resource\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="jsTexture.cpp">
+      <Filter>Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="jsScene.cpp">
+      <Filter>Scene\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="jsGameObject.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="jsLayer.cpp">
+      <Filter>Scene\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="jsSceneManager.cpp">
+      <Filter>Scene\Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -94,6 +154,33 @@
     </Filter>
     <Filter Include="Renderer">
       <UniqueIdentifier>{2fe53ad0-af3b-4d4b-b89e-55471a37b35d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Mesh">
+      <UniqueIdentifier>{1dadcc05-9d70-49cd-939d-1ddc9035de2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Shader">
+      <UniqueIdentifier>{c9ad3a03-3bad-4cb5-a2a6-1614882cee72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{e5732a3e-7309-4629-a668-a0541b45c054}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{340f59e6-b564-43fa-a84e-3a33d9f825d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Material">
+      <UniqueIdentifier>{113ec07c-3f49-4157-9f04-c638885d1bc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Texture">
+      <UniqueIdentifier>{80364776-f337-4107-8ee9-ce85375e4396}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{7dcc4fc8-b37b-4a80-be7e-e4de37ab9823}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Base">
+      <UniqueIdentifier>{ef577f28-1b6c-42f2-8f0e-de0d68877d1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Base">
+      <UniqueIdentifier>{2447cf89-ffb3-4056-9e0a-d04035698cc1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

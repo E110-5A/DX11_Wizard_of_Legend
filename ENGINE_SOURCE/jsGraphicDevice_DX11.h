@@ -12,11 +12,14 @@ namespace js::graphics
 
 		bool CreateSwapChain(DXGI_SWAP_CHAIN_DESC* desc);
 		bool CreateTexture(D3D11_TEXTURE2D_DESC* desc, ID3D11Texture2D** ppTexture2D);
-
 		bool CreateInputLayout(D3D11_INPUT_ELEMENT_DESC* desc, UINT NumElements, const void* byteCode, SIZE_T bytecodeLength, ID3D11InputLayout** ppInputLayout);
 		bool CreateBuffer(D3D11_BUFFER_DESC* desc, D3D11_SUBRESOURCE_DATA* data, ID3D11Buffer** buffer);
 		bool CreateShader();
+
 		void BindViewports(D3D11_VIEWPORT* viewPort);
+		void BindConstantBuffer(ID3D11Buffer* buffer, void* data, UINT size);
+		void SetConstantBuffer(eShaderStage stage, enums::eCBType type, ID3D11Buffer* buffer);
+
 
 		void Draw();
 
