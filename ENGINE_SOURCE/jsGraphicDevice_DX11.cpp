@@ -68,6 +68,7 @@ namespace js::graphics
 	}
 	GraphicDevice_DX11::~GraphicDevice_DX11()
 	{
+		renderer::Release();
 	}
 
 	bool GraphicDevice_DX11::CreateSwapChain(DXGI_SWAP_CHAIN_DESC* desc)
@@ -149,6 +150,39 @@ namespace js::graphics
 	{
 		mContext->RSSetViewports(1, viewPort);
 	}
+	void GraphicDevice_DX11::BindConstantBuffer(ID3D11Buffer* buffer, void* data, UINT size)
+	{
+		D3D11_MAPPED_SUBRESOURCE sub = {};
+		mContext->Map(buffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &sub);
+		memcpy(sub.pData, data, size);
+		mContext->Unmap(buffer, 0);
+	}
+	void GraphicDevice_DX11::SetConstantBuffer(eShaderStage stage, enums::eCBType type, ID3D11Buffer* buffer)
+	{
+		switch (stage)
+		{
+		case eShaderStage::VS:
+			mContext->VSSetConstantBuffers((UINT)type, 1, &buffer);
+			break;
+		case eShaderStage::HS:
+			mContext->HSSetConstantBuffers((UINT)type, 1, &buffer);
+			break;
+		case eShaderStage::DS:
+			mContext->DSSetConstantBuffers((UINT)type, 1, &buffer);
+			break;
+		case eShaderStage::GS:
+			mContext->GSSetConstantBuffers((UINT)type, 1, &buffer);
+			break;
+		case eShaderStage::PS:
+			mContext->PSSetConstantBuffers((UINT)type, 1, &buffer);
+			break;
+		case eShaderStage::CS:
+			mContext->CSSetConstantBuffers((UINT)type, 1, &buffer);
+			break;
+		default:
+			break;
+		}
+	}
 	void GraphicDevice_DX11::Draw()
 	{
 		D3D11_MAPPED_SUBRESOURCE sub = {};
@@ -160,6 +194,8 @@ namespace js::graphics
 		mContext->ClearRenderTargetView(mRenderTargetView.Get(), backgroundColor);
 		mContext->ClearDepthStencilView(mDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0);
 
+		SetConstantBuffer(eShaderStage::VS, enums::eCBType::Transform, renderer::constantBuffer);
+
 		RECT windowRect;
 		GetClientRect(application.GetHwnd(), &windowRect);
 		mViewPort = { 0.f, 0.f, FLOAT(windowRect.right - windowRect.left), FLOAT(windowRect.bottom - windowRect.top), 0.f, 1.0f };
@@ -169,13 +205,15 @@ namespace js::graphics
 		UINT vertexSize = sizeof(renderer::Vertex);
 		UINT offset = 0;
 		mContext->IASetVertexBuffers(0, 1, &renderer::vertexBuffer, &vertexSize, &offset);
+		mContext->IASetIndexBuffer(renderer::indexBuffer, DXGI_FORMAT_R32_UINT, 0);
+
 		mContext->IASetInputLayout(renderer::inputLayout);
 		mContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 		mContext->VSSetShader(renderer::VS, 0, 0);
 		mContext->PSSetShader(renderer::PS, 0, 0);
 
-		mContext->Draw(3, 0);
+		mContext->DrawIndexed(6, 0, 0);
 
 		mSwapChain->Present(0, 0);
 	}
