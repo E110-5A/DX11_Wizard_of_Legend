@@ -1,24 +1,13 @@
 #include "jsRenderer.h"
 #include "jsResources.h"
 
-
 namespace js::renderer
 {
 	Vertex vertexes[NumOfVertex] = {};
-
-	Mesh* mesh = nullptr;
-
-	Microsoft::WRL::ComPtr<ID3DBlob>			errorBlob = nullptr;
 	Microsoft::WRL::ComPtr<ID3D11Buffer>		constantBuffer = nullptr;
-
-	Microsoft::WRL::ComPtr<ID3DBlob>			VSBlob = nullptr;
-	Microsoft::WRL::ComPtr<ID3D11VertexShader>	VS = nullptr;
-
-	Microsoft::WRL::ComPtr<ID3DBlob>			PSBlob = nullptr;
-	Microsoft::WRL::ComPtr<ID3D11PixelShader>	PS = nullptr;
-
-	Microsoft::WRL::ComPtr<ID3D11InputLayout>	inputLayout = nullptr;
 	
+	Mesh* mesh = nullptr;
+	Shader* shader = nullptr;
 
 
 	void SetUpState()
@@ -40,9 +29,9 @@ namespace js::renderer
 		arrLayoutDesc[1].SemanticIndex = 0;
 
 		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, NumOfInputLayout
-			, VSBlob->GetBufferPointer()
-			, VSBlob->GetBufferSize()
-			, &inputLayout);
+			, shader->GetVertexBlobBufferPointer()
+			, shader->GetVertexBlobBufferSize()
+			, shader->GetInputLyaoutAddressOf());
 	}
 
 	void LoadBuffer()
@@ -82,7 +71,9 @@ namespace js::renderer
 
 	void LoadShader()
 	{
-		graphics::GetDevice()->CreateShader();
+		shader = new Shader();
+		shader->Create(graphics::eShaderStage::VS, L"TriangleVS.hlsl", "VS_Test");
+		shader->Create(graphics::eShaderStage::PS, L"TrianglePS.hlsl", "PS_Test");
 	}
 
 	void Initialize()
@@ -108,6 +99,9 @@ namespace js::renderer
 	{
 		delete mesh;
 		mesh = nullptr;
+
+		delete shader;
+		shader = nullptr;
 	}
 }
 

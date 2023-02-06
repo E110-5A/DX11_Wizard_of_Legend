@@ -107,45 +107,25 @@ namespace js::graphics
 			return false;
 		return true;
 	}
-	bool GraphicDevice_DX11::CreateShader()
+	bool GraphicDevice_DX11::CreateVertexShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11ClassLinkage* pClassLinkage, ID3D11VertexShader** ppVertexShader)
 	{
-		ID3DBlob* errorBlob = nullptr;
-		std::filesystem::path shaderPath = std::filesystem::current_path().parent_path();
-		shaderPath += L"\\SHADER_SOURCE\\";
-
-		std::wstring vsPath(shaderPath.c_str());
-		vsPath += L"TriangleVS.hlsl";
-		D3DCompileFromFile(vsPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
-			, "VS_Test", "vs_5_0", 0, 0, renderer::VSBlob.GetAddressOf(), &errorBlob);
-
-		mDevice->CreateVertexShader(renderer::VSBlob->GetBufferPointer()
-			, renderer::VSBlob->GetBufferSize(), nullptr
-			, renderer::VS.GetAddressOf());
-
-		if (errorBlob)
-		{
-			OutputDebugStringA((char*)errorBlob->GetBufferPointer());
-			errorBlob->Release();
-			errorBlob = nullptr;
-		}
-
-		std::wstring psPath(shaderPath.c_str());
-		psPath += L"TrianglePS.hlsl";
-		D3DCompileFromFile(psPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
-			, "PS_Test", "ps_5_0", 0, 0, renderer::PSBlob.GetAddressOf(), &errorBlob);
-
-		mDevice->CreatePixelShader(renderer::PSBlob->GetBufferPointer()
-			, renderer::PSBlob->GetBufferSize(), nullptr
-			, renderer::PS.GetAddressOf());
-
-		if (errorBlob)
-		{
-			OutputDebugStringA((char*)errorBlob->GetBufferPointer());
-			errorBlob->Release();
-			errorBlob = nullptr;
-		}
-
+		if (FAILED(mDevice->CreateVertexShader(pShaderBytecode, BytecodeLength, pClassLinkage, ppVertexShader)))
+			return false;
 		return true;
+	}
+	bool GraphicDevice_DX11::CreatePixelShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11ClassLinkage* pClassLinkage, ID3D11PixelShader** ppPixelShader)
+	{
+		if (FAILED(mDevice->CreatePixelShader(pShaderBytecode, BytecodeLength, pClassLinkage, ppPixelShader)))
+			return false;
+		return true;
+	}
+	void GraphicDevice_DX11::BindPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY topology)
+	{
+		mContext->IASetPrimitiveTopology(topology);
+	}
+	void GraphicDevice_DX11::BindInputLayout(ID3D11InputLayout* pInputLayout)
+	{
+		mContext->IASetInputLayout(pInputLayout);
 	}
 	void GraphicDevice_DX11::BindVertexBuffer(UINT startSlot, UINT NumBuffers, ID3D11Buffer* const* ppVertexBuffers, const UINT* pStrides, const UINT* pOffsets)
 	{
@@ -154,6 +134,14 @@ namespace js::graphics
 	void GraphicDevice_DX11::BindIndexBuffer(ID3D11Buffer* pIndexBuffer, DXGI_FORMAT format, UINT offset)
 	{
 		mContext->IASetIndexBuffer(pIndexBuffer, format, offset);
+	}
+	void GraphicDevice_DX11::BindVertexShader(ID3D11VertexShader* pVertexShader, ID3D11ClassInstance* const* ppClassInstances, UINT numClassInstances)
+	{
+		mContext->VSSetShader(pVertexShader, ppClassInstances, numClassInstances);
+	}
+	void GraphicDevice_DX11::BindPixelShader(ID3D11PixelShader* pPixelShader, ID3D11ClassInstance* const* ppClassInstances, UINT numClassInstances)
+	{
+		mContext->PSSetShader(pPixelShader, ppClassInstances, numClassInstances);
 	}
 	void GraphicDevice_DX11::BindViewports(D3D11_VIEWPORT* viewPort)
 	{
@@ -192,6 +180,15 @@ namespace js::graphics
 			break;
 		}
 	}
+	void GraphicDevice_DX11::SetShaderResource()
+	{
+	}
+	void GraphicDevice_DX11::BindSamplers()
+	{
+	}
+	void GraphicDevice_DX11::BindsSamplers()
+	{
+	}
 	void GraphicDevice_DX11::Clear()
 	{
 		FLOAT backgroundColor[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
@@ -228,13 +225,7 @@ namespace js::graphics
 		AdjustViewPorts();
 
 		renderer::mesh->BindBuffer();
-
-		mContext->IASetInputLayout(renderer::inputLayout.Get());
-		mContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-		mContext->VSSetShader(renderer::VS.Get()	, 0, 0);
-		mContext->PSSetShader(renderer::PS.Get(), 0, 0);
-
+		renderer::shader->Binds();
 		renderer::mesh->Render();
 		Present();
 	}
