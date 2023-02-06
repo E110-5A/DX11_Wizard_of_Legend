@@ -2,6 +2,7 @@
 #include "jsRenderer.h"
 #include "jsTime.h"
 #include "jsInput.h"
+#include "jsSceneManager.h"
 
 namespace js
 {
@@ -18,12 +19,13 @@ namespace js
 	{
 	}
 
-	void Application::Initalize()
+	void Application::Initialize()
 	{
 		Time::Initialize();
 		Input::Initialize();
 
 		renderer::Initialize();
+		SceneManager::Initialize();
 	}
 	void Application::Update()
 	{
@@ -38,7 +40,12 @@ namespace js
 	{
 		Time::Render(mHdc);
 
-		graphicDevice->Render();
+		graphicDevice->Clear();
+		graphicDevice->AdjustViewPorts();
+
+		SceneManager::Render();
+
+		graphicDevice->Present();
 	}
 
 	void Application::Run()

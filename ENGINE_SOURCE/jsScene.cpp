@@ -9,11 +9,11 @@ namespace js
 	Scene::~Scene()
 	{
 	}
-	void Scene::Initalize()
+	void Scene::Initialize()
 	{
 		for (Layer& layer : mLayers)
 		{
-			layer.Initalize();
+			layer.Initialize();
 		}
 	}
 	void Scene::Update()

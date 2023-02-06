@@ -1,22 +1,28 @@
 #include "jsSceneManager.h"
 #include "jsTransform.h"
+#include "jsMeshRenderer.h"
+#include "jsRenderer.h"
 
 namespace js
 {
 	Scene* SceneManager::mPlayScene = nullptr;
 
-	void SceneManager::Initalize()
+	void SceneManager::Initialize()
 	{
 		mPlayScene = new Scene();
-		mPlayScene->Initalize();
+		mPlayScene->Initialize();
 
 		GameObject* object = new GameObject();
 		Transform* transform = new Transform();
 		transform->SetPosition(Vector3(0.2f, 0.2f, 0.f));
 		object->AddComponent(transform);
 
-		mPlayScene->AddGameObject(object, eLayerType::Player);
+		MeshRenderer* meshRenderer = new MeshRenderer();
+		meshRenderer->SetMesh(renderer::mesh);
+		meshRenderer->SetShader(renderer::shader);
+		object->AddComponent(meshRenderer);
 
+		mPlayScene->AddGameObject(object, eLayerType::Player);
 	}
 	void SceneManager::Update()
 	{

@@ -8,14 +8,14 @@ namespace js
 	Layer::~Layer()
 	{
 	}
-	void Layer::Initalize()
+	void Layer::Initialize()
 	{
 		for (GameObject* object : mGameObjects)
 		{
 			if (object == nullptr)
 				continue;
 
-			object->Initalize();
+			object->Initialize();
 		}
 	}
 	void Layer::Update()

@@ -11,7 +11,7 @@ namespace js
 	{
 	}
 
-	void Transform::Initalize()
+	void Transform::Initialize()
 	{
 	}
 	void Transform::Update()

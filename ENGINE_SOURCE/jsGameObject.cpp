@@ -10,14 +10,14 @@ namespace js
 	GameObject::~GameObject()
 	{
 	}
-	void GameObject::Initalize()
+	void GameObject::Initialize()
 	{
 		for (Component* component : mComponents)
 		{
 			if (component == nullptr)
 				continue;
 
-			component->Initalize();
+			component->Initialize();
 		}
 	}
 	void GameObject::Update()

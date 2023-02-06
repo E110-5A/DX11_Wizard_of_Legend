@@ -6,7 +6,7 @@ namespace js
 	class SceneManager
 	{
 	public:
-		static void Initalize();
+		static void Initialize();
 		static void Update();
 		static void FixedUpdate();
 		static void Render();
