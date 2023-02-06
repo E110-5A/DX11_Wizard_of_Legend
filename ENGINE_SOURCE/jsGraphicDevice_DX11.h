@@ -16,12 +16,20 @@ namespace js::graphics
 		bool CreateBuffer(D3D11_BUFFER_DESC* desc, D3D11_SUBRESOURCE_DATA* data, ID3D11Buffer** buffer);
 		bool CreateShader();
 
+		void BindVertexBuffer(UINT startSlot, UINT NumBuffers, ID3D11Buffer* const* ppVertexBuffers, const UINT* pStrides, const UINT* pOffsets);
+		void BindIndexBuffer(ID3D11Buffer* pIndexBuffer, DXGI_FORMAT format, UINT offset);
 		void BindViewports(D3D11_VIEWPORT* viewPort);
 		void BindConstantBuffer(ID3D11Buffer* buffer, void* data, UINT size);
 		void SetConstantBuffer(eShaderStage stage, enums::eCBType type, ID3D11Buffer* buffer);
 
+		void Clear();
+		void AdjustViewPorts();
 
 		void Draw();
+		void DrawIndexed(UINT indexCount, UINT startIndexLocation, UINT baseVertexLocation);
+
+		void Present();
+		void Render();
 
 	private:
 		Microsoft::WRL::ComPtr<ID3D11Device>			mDevice;

@@ -3,6 +3,7 @@
 #include "jsMath.h"
 #include "jsGraphicDevice_DX11.h"
 
+#include "jsMesh.h"
 
 #define NumOfVertex 4
 #define NumOfInputLayout 2
@@ -15,19 +16,20 @@ namespace js::renderer
 		math::Vector4 color;
 	};
 
-
 	extern Vertex vertexes[NumOfVertex];
 
-	extern ID3D11Buffer*		vertexBuffer;
-	extern ID3D11Buffer*		indexBuffer;
-	extern ID3D11Buffer*		constantBuffer;
-	extern ID3DBlob*			errorBlob;
-	extern ID3DBlob*			VSBlob;
-	extern ID3DBlob*			PSBlob;
+	extern Mesh* mesh;
 
-	extern ID3D11VertexShader*	VS;
-	extern ID3D11PixelShader*	PS;
-	extern ID3D11InputLayout*	inputLayout;
+	extern Microsoft::WRL::ComPtr<ID3DBlob>				errorBlob;
+	extern Microsoft::WRL::ComPtr<ID3D11Buffer>			constantBuffer;
+		
+	extern Microsoft::WRL::ComPtr<ID3DBlob>				VSBlob;
+	extern Microsoft::WRL::ComPtr<ID3D11VertexShader>	VS;
+
+	extern Microsoft::WRL::ComPtr<ID3DBlob>				PSBlob;
+	extern Microsoft::WRL::ComPtr<ID3D11PixelShader>	PS;
+
+	extern Microsoft::WRL::ComPtr<ID3D11InputLayout>	inputLayout;
 
 	void Initialize();
 	void Release();

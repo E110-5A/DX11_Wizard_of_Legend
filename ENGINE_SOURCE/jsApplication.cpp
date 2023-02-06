@@ -38,7 +38,7 @@ namespace js
 	{
 		Time::Render(mHdc);
 
-		graphicDevice->Draw();
+		graphicDevice->Render();
 	}
 
 	void Application::Run()

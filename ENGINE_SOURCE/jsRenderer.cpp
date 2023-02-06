@@ -1,24 +1,25 @@
 #include "jsRenderer.h"
-
+#include "jsResources.h"
 
 
 namespace js::renderer
 {
 	Vertex vertexes[NumOfVertex] = {};
 
-	ID3DBlob* errorBlob = nullptr;
-	ID3D11Buffer* vertexBuffer = nullptr;
-	ID3D11Buffer* indexBuffer = nullptr;
-	ID3D11Buffer* constantBuffer = nullptr;
+	Mesh* mesh = nullptr;
 
+	Microsoft::WRL::ComPtr<ID3DBlob>			errorBlob = nullptr;
+	Microsoft::WRL::ComPtr<ID3D11Buffer>		constantBuffer = nullptr;
 
-	ID3DBlob* VSBlob = nullptr;
-	ID3D11VertexShader* VS = nullptr;
+	Microsoft::WRL::ComPtr<ID3DBlob>			VSBlob = nullptr;
+	Microsoft::WRL::ComPtr<ID3D11VertexShader>	VS = nullptr;
+
+	Microsoft::WRL::ComPtr<ID3DBlob>			PSBlob = nullptr;
+	Microsoft::WRL::ComPtr<ID3D11PixelShader>	PS = nullptr;
+
+	Microsoft::WRL::ComPtr<ID3D11InputLayout>	inputLayout = nullptr;
 	
-	ID3DBlob* PSBlob = nullptr;
-	ID3D11PixelShader* PS = nullptr;
 
-	ID3D11InputLayout* inputLayout = nullptr;
 
 	void SetUpState()
 	{
@@ -46,20 +47,13 @@ namespace js::renderer
 
 	void LoadBuffer()
 	{
-		D3D11_BUFFER_DESC vertexDesc = {};
-
-		vertexDesc.ByteWidth = sizeof(Vertex) * NumOfVertex;
-		vertexDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_VERTEX_BUFFER;
-		vertexDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
-		vertexDesc.CPUAccessFlags = D3D11_CPU_ACCESS_FLAG::D3D11_CPU_ACCESS_WRITE;
-
-		D3D11_SUBRESOURCE_DATA subVertexData = {};
-		subVertexData.pSysMem = vertexes;
-
-		graphics::GetDevice()->CreateBuffer(&vertexDesc, &subVertexData, &vertexBuffer);
+		mesh = new Mesh();
+		Resources::Insert<Mesh>(L"RectMesh", mesh);
+		mesh->CreateVertexBuffer(vertexes, NumOfVertex);
 
 
 		std::vector<UINT> indexes;
+
 		indexes.push_back(0);
 		indexes.push_back(1);
 		indexes.push_back(2);
@@ -68,18 +62,7 @@ namespace js::renderer
 		indexes.push_back(2);
 		indexes.push_back(3);
 
-		D3D11_BUFFER_DESC indexDesc = {};
-
-		indexDesc.ByteWidth = indexes.size() * sizeof(UINT);
-		indexDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_INDEX_BUFFER;
-		indexDesc.Usage = D3D11_USAGE::D3D11_USAGE_DEFAULT;
-		indexDesc.CPUAccessFlags = 0;
-
-		D3D11_SUBRESOURCE_DATA subIndexData = {};
-		subIndexData.pSysMem = indexes.data();
-
-		graphics::GetDevice()->CreateBuffer(&indexDesc, &subIndexData, &indexBuffer);
-
+		mesh->CreateIndexBuffer(indexes.data(), indexes.size());
 
 
 
@@ -91,10 +74,10 @@ namespace js::renderer
 		ConstantDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
 		ConstantDesc.CPUAccessFlags = D3D11_CPU_ACCESS_FLAG::D3D11_CPU_ACCESS_WRITE;
 
-		graphics::GetDevice()->CreateBuffer(&ConstantDesc, nullptr, &constantBuffer);
+		graphics::GetDevice()->CreateBuffer(&ConstantDesc, nullptr, constantBuffer.GetAddressOf());
 
 		math::Vector4 pos(0.2f, 0.2f, 0.f, 0.f);
-		graphics::GetDevice()->BindConstantBuffer(constantBuffer, &pos, sizeof(math::Vector4));
+		graphics::GetDevice()->BindConstantBuffer(constantBuffer.Get(), &pos, sizeof(math::Vector4));
 	}
 
 	void LoadShader()
@@ -119,12 +102,12 @@ namespace js::renderer
 		LoadShader();
 		SetUpState();
 		LoadBuffer();
-
-		graphics::GetDevice()->BindConstantBuffer(vertexBuffer, vertexes, sizeof(renderer::Vertex) * NumOfVertex);
 	}
 
 	void Release()
 	{
+		delete mesh;
+		mesh = nullptr;
 	}
 }
 

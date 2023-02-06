@@ -1,6 +1,7 @@
 #include "jsGraphicDevice_DX11.h"
 #include "jsApplication.h"
 #include "jsRenderer.h"
+#include "jsMesh.h"
 
 extern js::Application application;
 
@@ -115,11 +116,11 @@ namespace js::graphics
 		std::wstring vsPath(shaderPath.c_str());
 		vsPath += L"TriangleVS.hlsl";
 		D3DCompileFromFile(vsPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
-			, "VS_Test", "vs_5_0", 0, 0, &renderer::VSBlob, &errorBlob);
+			, "VS_Test", "vs_5_0", 0, 0, renderer::VSBlob.GetAddressOf(), &errorBlob);
 
 		mDevice->CreateVertexShader(renderer::VSBlob->GetBufferPointer()
 			, renderer::VSBlob->GetBufferSize(), nullptr
-			, &renderer::VS);
+			, renderer::VS.GetAddressOf());
 
 		if (errorBlob)
 		{
@@ -131,11 +132,11 @@ namespace js::graphics
 		std::wstring psPath(shaderPath.c_str());
 		psPath += L"TrianglePS.hlsl";
 		D3DCompileFromFile(psPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
-			, "PS_Test", "ps_5_0", 0, 0, &renderer::PSBlob, &errorBlob);
+			, "PS_Test", "ps_5_0", 0, 0, renderer::PSBlob.GetAddressOf(), &errorBlob);
 
 		mDevice->CreatePixelShader(renderer::PSBlob->GetBufferPointer()
 			, renderer::PSBlob->GetBufferSize(), nullptr
-			, &renderer::PS);
+			, renderer::PS.GetAddressOf());
 
 		if (errorBlob)
 		{
@@ -145,6 +146,14 @@ namespace js::graphics
 		}
 
 		return true;
+	}
+	void GraphicDevice_DX11::BindVertexBuffer(UINT startSlot, UINT NumBuffers, ID3D11Buffer* const* ppVertexBuffers, const UINT* pStrides, const UINT* pOffsets)
+	{
+		mContext->IASetVertexBuffers(startSlot, NumBuffers, ppVertexBuffers, pStrides, pOffsets);
+	}
+	void GraphicDevice_DX11::BindIndexBuffer(ID3D11Buffer* pIndexBuffer, DXGI_FORMAT format, UINT offset)
+	{
+		mContext->IASetIndexBuffer(pIndexBuffer, format, offset);
 	}
 	void GraphicDevice_DX11::BindViewports(D3D11_VIEWPORT* viewPort)
 	{
@@ -183,38 +192,50 @@ namespace js::graphics
 			break;
 		}
 	}
-	void GraphicDevice_DX11::Draw()
+	void GraphicDevice_DX11::Clear()
 	{
-		D3D11_MAPPED_SUBRESOURCE sub = {};
-		mContext->Map(renderer::vertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &sub);
-		memcpy(sub.pData, renderer::vertexes, sizeof(renderer::Vertex) * NumOfVertex);
-		mContext->Unmap(renderer::vertexBuffer, 0);
-
 		FLOAT backgroundColor[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
 		mContext->ClearRenderTargetView(mRenderTargetView.Get(), backgroundColor);
 		mContext->ClearDepthStencilView(mDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0);
-
-		SetConstantBuffer(eShaderStage::VS, enums::eCBType::Transform, renderer::constantBuffer);
-
+	}
+	void GraphicDevice_DX11::AdjustViewPorts()
+	{
 		RECT windowRect;
 		GetClientRect(application.GetHwnd(), &windowRect);
 		mViewPort = { 0.f, 0.f, FLOAT(windowRect.right - windowRect.left), FLOAT(windowRect.bottom - windowRect.top), 0.f, 1.0f };
 		BindViewports(&mViewPort);
 		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
+	}
+	void GraphicDevice_DX11::Draw()
+	{
+		mContext->Draw(0, 0);
+		
+	}
+	void GraphicDevice_DX11::DrawIndexed(UINT indexCount, UINT startIndexLocation, UINT baseVertexLocation)
+	{
+		mContext->DrawIndexed(indexCount, startIndexLocation, baseVertexLocation);
+	}
+	void GraphicDevice_DX11::Present()
+	{
+		mSwapChain->Present(0, 0);
+	}
+	void GraphicDevice_DX11::Render()
+	{
+		Clear();
 
-		UINT vertexSize = sizeof(renderer::Vertex);
-		UINT offset = 0;
-		mContext->IASetVertexBuffers(0, 1, &renderer::vertexBuffer, &vertexSize, &offset);
-		mContext->IASetIndexBuffer(renderer::indexBuffer, DXGI_FORMAT_R32_UINT, 0);
+		SetConstantBuffer(eShaderStage::VS, enums::eCBType::Transform, renderer::constantBuffer.Get());
 
-		mContext->IASetInputLayout(renderer::inputLayout);
+		AdjustViewPorts();
+
+		renderer::mesh->BindBuffer();
+
+		mContext->IASetInputLayout(renderer::inputLayout.Get());
 		mContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-		mContext->VSSetShader(renderer::VS, 0, 0);
-		mContext->PSSetShader(renderer::PS, 0, 0);
+		mContext->VSSetShader(renderer::VS.Get()	, 0, 0);
+		mContext->PSSetShader(renderer::PS.Get(), 0, 0);
 
-		mContext->DrawIndexed(6, 0, 0);
-
-		mSwapChain->Present(0, 0);
+		renderer::mesh->Render();
+		Present();
 	}
 }
