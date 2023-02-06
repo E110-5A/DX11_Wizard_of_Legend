@@ -1,6 +1,7 @@
 #include "jsGraphicDevice_DX11.h"
 #include "jsApplication.h"
 #include "jsRenderer.h"
+#include "jsConstantBuffer.h"
 #include "jsMesh.h"
 
 extern js::Application application;
@@ -219,8 +220,6 @@ namespace js::graphics
 	void GraphicDevice_DX11::Render()
 	{
 		Clear();
-
-		SetConstantBuffer(eShaderStage::VS, enums::eCBType::Transform, renderer::constantBuffer.Get());
 
 		AdjustViewPorts();
 

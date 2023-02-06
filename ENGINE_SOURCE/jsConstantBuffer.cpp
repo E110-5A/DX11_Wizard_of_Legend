@@ -10,7 +10,7 @@ namespace js::graphics
 	ConstantBuffer::~ConstantBuffer()
 	{
 	}
-	bool ConstantBuffer::Create(SIZE_T size)
+	bool ConstantBuffer::Create(size_t size)
 	{
 		desc.ByteWidth = size;
 		desc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_CONSTANT_BUFFER;

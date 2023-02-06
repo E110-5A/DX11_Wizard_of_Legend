@@ -5,9 +5,13 @@
 
 #include "jsMesh.h"
 #include "jsShader.h"
+#include "jsConstantBuffer.h"
 
 #define NumOfVertex 4
 #define NumOfInputLayout 2
+
+using namespace js::enums;
+using namespace js::graphics;
 
 namespace js::renderer
 {
@@ -18,11 +22,10 @@ namespace js::renderer
 	};
 
 	extern Vertex vertexes[NumOfVertex];
-	extern Microsoft::WRL::ComPtr<ID3D11Buffer>			constantBuffer;
-	
 	extern Mesh* mesh;
 	extern Shader* shader;
-
+	extern ConstantBuffer* constantBuffers[];
+	
 	void Initialize();
 	void Release();
 }

@@ -1,4 +1,5 @@
 #include "jsTransform.h"
+#include "jsRenderer.h"
 
 namespace js
 {
@@ -25,5 +26,9 @@ namespace js
 	}
 	void Transform::SetConstantBuffer()
 	{
+		ConstantBuffer* constantBuffer = renderer::constantBuffers[(UINT)eCBType::Transform];
+		Vector4 pos(mPosition.x, mPosition.y, mPosition.z, 0.f);
+		constantBuffer->Bind(&pos);
+		constantBuffer->SetPipline(eShaderStage::VS);
 	}
 }

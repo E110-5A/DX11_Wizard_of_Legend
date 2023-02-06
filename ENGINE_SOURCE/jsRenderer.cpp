@@ -4,11 +4,10 @@
 namespace js::renderer
 {
 	Vertex vertexes[NumOfVertex] = {};
-	Microsoft::WRL::ComPtr<ID3D11Buffer>		constantBuffer = nullptr;
 	
 	Mesh* mesh = nullptr;
 	Shader* shader = nullptr;
-
+	ConstantBuffer* constantBuffers[(UINT)eCBType::End] = {};
 
 	void SetUpState()
 	{
@@ -54,7 +53,9 @@ namespace js::renderer
 		mesh->CreateIndexBuffer(indexes.data(), indexes.size());
 				
 		math::Vector4 pos(0.2f, 0.2f, 0.f, 0.f);
-		graphics::GetDevice()->BindConstantBuffer(constantBuffer.Get(), &pos, sizeof(math::Vector4));
+		constantBuffers[(UINT)eCBType::Transform] = new ConstantBuffer();
+		constantBuffers[(UINT)eCBType::Transform]->Create(sizeof(math::Vector4));
+		constantBuffers[(UINT)eCBType::Transform]->Bind(&pos);
 	}
 
 	void LoadShader()
@@ -90,6 +91,12 @@ namespace js::renderer
 
 		delete shader;
 		shader = nullptr;
+
+		for (size_t index = 0; index < (UINT)eCBType::End; ++index)
+		{
+			delete constantBuffers[index];
+			constantBuffers[index] = nullptr;
+		}
 	}
 }
 

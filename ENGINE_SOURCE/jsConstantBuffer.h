@@ -1,6 +1,8 @@
 #pragma once
 #include "jsGraphics.h"
 
+using namespace js::enums;
+
 namespace js::graphics
 {
 	class ConstantBuffer : public GPUBuffer
@@ -9,7 +11,7 @@ namespace js::graphics
 		ConstantBuffer();
 		virtual ~ConstantBuffer();
 
-		bool Create(SIZE_T size);
+		bool Create(size_t size);
 		void Bind(void* data);
 		void SetPipline(eShaderStage stage);
 
