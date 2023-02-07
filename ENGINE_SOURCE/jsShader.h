@@ -10,7 +10,7 @@ namespace js
 		Shader();
 		~Shader();
 
-		virtual HRESULT Load(const std::wstring& strPath);
+		virtual HRESULT Load(const std::wstring& strPath) override;
 
 		void Create(graphics::eShaderStage stage, const std::wstring& file, const std::string& funcName);
 		void Binds();

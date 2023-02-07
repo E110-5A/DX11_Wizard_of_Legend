@@ -2,7 +2,11 @@
 #include "Client.h"
 #include "jsApplication.h"
 
+#ifdef _DEBUG
 #pragma comment(lib, "..\\x64\\Debug\\Lib\\ENGINE_SOURCE.lib")
+#else
+#pragma comment(lib, "..\\x64\\Release\\Lib\\ENGINE_SOURCE.lib")
+#endif
 
 #define MAX_LOADSTRING 100
 HINSTANCE hInst;                                

@@ -181,8 +181,31 @@ namespace js::graphics
 			break;
 		}
 	}
-	void GraphicDevice_DX11::SetShaderResource()
+	void GraphicDevice_DX11::SetShaderResource(eShaderStage stage, UINT slot, ID3D11ShaderResourceView* const* ppShdaerResourceViews)
 	{
+		switch (stage)
+		{
+		case eShaderStage::VS:
+			mContext->VSSetShaderResources(slot, 1, ppShdaerResourceViews);
+			break;
+		case eShaderStage::HS:
+			mContext->HSSetShaderResources(slot, 1, ppShdaerResourceViews);
+			break;
+		case eShaderStage::DS:
+			mContext->DSSetShaderResources(slot, 1, ppShdaerResourceViews);
+			break;
+		case eShaderStage::GS:
+			mContext->GSSetShaderResources(slot, 1, ppShdaerResourceViews);
+			break;
+		case eShaderStage::PS:
+			mContext->PSSetShaderResources(slot, 1, ppShdaerResourceViews);
+			break;
+		case eShaderStage::CS:
+			mContext->CSSetShaderResources(slot, 1, ppShdaerResourceViews);
+			break;
+		default:
+			break;
+		}
 	}
 	void GraphicDevice_DX11::BindSamplers()
 	{
