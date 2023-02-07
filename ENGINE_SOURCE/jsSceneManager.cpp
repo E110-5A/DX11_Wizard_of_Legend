@@ -1,7 +1,10 @@
 #include "jsSceneManager.h"
+#include "jsRenderer.h"
+#include "jsResources.h"
+
 #include "jsTransform.h"
 #include "jsMeshRenderer.h"
-#include "jsRenderer.h"
+#include "jsTexture.h"
 
 namespace js
 {
@@ -21,6 +24,9 @@ namespace js
 		meshRenderer->SetMesh(renderer::mesh);
 		meshRenderer->SetShader(renderer::shader);
 		object->AddComponent(meshRenderer);
+
+		Texture* texture = Resources::Load<Texture>(L"SmileTexture", L"Smile.png");
+		texture->BindShader(eShaderStage::PS, 0);
 
 		mPlayScene->AddGameObject(object, eLayerType::Player);
 	}

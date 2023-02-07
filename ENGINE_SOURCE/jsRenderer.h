@@ -8,17 +8,18 @@
 #include "jsConstantBuffer.h"
 
 #define NumOfVertex 4
-#define NumOfInputLayout 2
+#define NumOfInputLayout 3
 
-using namespace js::enums;
+using namespace js::math;
 using namespace js::graphics;
 
 namespace js::renderer
 {
 	struct Vertex
 	{
-		math::Vector3 pos;
-		math::Vector4 color;
+		Vector3 pos;
+		Vector4 color;
+		Vector2 uv;
 	};
 
 	extern Vertex vertexes[NumOfVertex];
