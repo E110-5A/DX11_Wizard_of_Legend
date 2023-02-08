@@ -1,7 +1,7 @@
 #pragma once
 #include "jsComponent.h"
 #include "jsMesh.h"
-#include "jsShader.h"
+#include "jsMaterial.h"
 
 using namespace js::graphics;
 namespace js
@@ -18,10 +18,11 @@ namespace js
 		virtual void Render() override;
 
 		void SetMesh(Mesh* mesh) { mMesh = mesh; }
-		void SetShader(Shader* shader) { mShader = shader; }
+		void SetMaterial(Material* material) { mMaterial = material; }
+
 
 	private:
 		Mesh*	mMesh;
-		Shader* mShader;
+		Material* mMaterial;
 	};
 }

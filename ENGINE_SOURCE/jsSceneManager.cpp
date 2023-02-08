@@ -17,15 +17,17 @@ namespace js
 
 		GameObject* object = new GameObject();
 		Transform* transform = new Transform();
-		transform->SetPosition(Vector3(0.2f, 0.2f, 0.f));
+		transform->SetPosition(Vector3(0.0f, 0.0f, 0.f));
 		object->AddComponent(transform);
 
 		MeshRenderer* meshRenderer = new MeshRenderer();
 		object->AddComponent(meshRenderer);
+
+
 		Mesh* mesh = Resources::Find<Mesh>(L"RectMesh");
-		Shader* shader = Resources::Find<Shader>(L"RectShader");
+		Material* material = Resources::Find<Material>(L"RectMaterial");
 		meshRenderer->SetMesh(mesh);
-		meshRenderer->SetShader(shader);
+		meshRenderer->SetMaterial(material);
 
 		Texture* texture = Resources::Load<Texture>(L"SmileTexture", L"Smile.png");
 		texture->BindShader(eShaderStage::PS, 0);

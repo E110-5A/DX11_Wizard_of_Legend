@@ -8,7 +8,7 @@ namespace js::graphics
 	class ConstantBuffer : public GPUBuffer
 	{
 	public:
-		ConstantBuffer();
+		ConstantBuffer(eCBType type);
 		virtual ~ConstantBuffer();
 
 		bool Create(size_t size);

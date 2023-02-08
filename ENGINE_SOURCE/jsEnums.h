@@ -2,12 +2,6 @@
 
 namespace js::enums
 {
-	enum class eCBType
-	{
-		Transform,
-		End,
-	};
-
 	enum class eLayerType
 	{
 		None,

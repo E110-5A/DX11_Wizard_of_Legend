@@ -70,7 +70,12 @@
     <ClInclude Include="jsSceneManager.h">
       <Filter>Scene\Base</Filter>
     </ClInclude>
-    <ClInclude Include="jsConstantBuffer.h" />
+    <ClInclude Include="jsMaterial.h">
+      <Filter>Resource\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="jsConstantBuffer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jsGraphicDevice_DX11.cpp">
@@ -130,7 +135,12 @@
     <ClCompile Include="jsSceneManager.cpp">
       <Filter>Scene\Base</Filter>
     </ClCompile>
-    <ClCompile Include="jsConstantBuffer.cpp" />
+    <ClCompile Include="jsMaterial.cpp">
+      <Filter>Resource\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="jsConstantBuffer.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">
