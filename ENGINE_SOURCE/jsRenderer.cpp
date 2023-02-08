@@ -33,7 +33,7 @@ namespace js::renderer
 		arrLayoutDesc[2].SemanticName = "TEXCOORD";
 		arrLayoutDesc[2].SemanticIndex = 0;
 
-		Shader* shader = Resources::Find<Shader>(L"RectShader");
+		std::shared_ptr<Shader> shader = Resources::Find<Shader>(L"RectShader");
 		graphics::GetDevice()->CreateInputLayout(arrLayoutDesc, NumOfInputLayout
 			, shader->GetVertexBlobBufferPointer()
 			, shader->GetVertexBlobBufferSize()
@@ -60,7 +60,7 @@ namespace js::renderer
 
 	void LoadBuffer()
 	{
-		Mesh* mesh = new Mesh();
+		std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
 		Resources::Insert<Mesh>(L"RectMesh", mesh);
 		mesh->CreateVertexBuffer(vertexes, NumOfVertex);
 
@@ -85,7 +85,7 @@ namespace js::renderer
 
 	void LoadShader()
 	{
-		Shader* shader = new Shader();
+		std::shared_ptr<Shader> shader = std::make_shared<Shader>();
 		shader->Create(graphics::eShaderStage::VS, L"TriangleVS.hlsl", "VS_Test");
 		shader->Create(graphics::eShaderStage::PS, L"TrianglePS.hlsl", "PS_Test");
 		Resources::Insert<Shader>(L"RectShader", shader);
@@ -93,10 +93,10 @@ namespace js::renderer
 
 	void LoadMaterial()
 	{		
-		Shader* shader = Resources::Find<Shader>(L"RectShader");
+		std::shared_ptr<Shader> shader = Resources::Find<Shader>(L"RectShader");
 
-		Material* material = new Material();
-		material->SetShader(shader);
+		std::shared_ptr<Material> material = std::make_shared<Material>();
+		material->SetShader(shader.get());
 		Resources::Insert<Material>(L"RectMaterial", material);
 	}
 	void Initialize()

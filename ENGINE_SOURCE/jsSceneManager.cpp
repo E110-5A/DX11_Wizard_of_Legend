@@ -2,8 +2,11 @@
 #include "jsRenderer.h"
 #include "jsResources.h"
 
+// component
 #include "jsTransform.h"
 #include "jsMeshRenderer.h"
+
+// resource
 #include "jsTexture.h"
 #include "jsPlayerScript.h"
 
@@ -24,13 +27,12 @@ namespace js
 		MeshRenderer* meshRenderer = new MeshRenderer();
 		object->AddComponent(meshRenderer);
 
+		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+		std::shared_ptr<Material> material = Resources::Find<Material>(L"RectMaterial");
+		meshRenderer->SetMesh(mesh.get());
+		meshRenderer->SetMaterial(material.get());
 
-		Mesh* mesh = Resources::Find<Mesh>(L"RectMesh");
-		Material* material = Resources::Find<Material>(L"RectMaterial");
-		meshRenderer->SetMesh(mesh);
-		meshRenderer->SetMaterial(material);
-
-		Texture* texture = Resources::Load<Texture>(L"SmileTexture", L"Smile.png");
+		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"SmileTexture", L"Smile.png");
 		texture->BindShader(eShaderStage::PS, 0);
 		
 		PlayerScript* script = new PlayerScript();

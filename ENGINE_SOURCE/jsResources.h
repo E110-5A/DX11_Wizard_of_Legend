@@ -8,36 +8,27 @@ namespace js
 	{
 	public:
 		typedef std::map<std::wstring, Resource*>::iterator ResourceIter;
+		typedef std::map<std::wstring, std::shared_ptr<Resource>>::iterator shardResourceIter;
+		
 
 		template <typename T>
-		static void Insert(const std::wstring& key, T* resource)
+		static std::shared_ptr<T> Find(const std::wstring& key)
 		{
-			if (nullptr == resource || key == L"")
-				return;
-
-			mResources.insert(std::make_pair(key, resource));
-		}
-
-
-		template <typename T>
-		static T* Find(const std::wstring& key)
-		{
-			ResourceIter iter = mResources.find(key);
+			shardResourceIter iter = mResources.find(key);
 
 			if (iter != mResources.end())
-				return dynamic_cast<T*>(iter->second);
-
+				return std::dynamic_pointer_cast<T>(iter->second);
 			return nullptr;
 		}
 
 		template<typename T>
-		static T* Load(const std::wstring& key, const std::wstring& path)
+		static std::shared_ptr<T> Load(const std::wstring& key, const std::wstring& path)
 		{
-			T* resource = Resources::Find<T>(key);
+			std::shared_ptr<T> resource = Resources::Find<T>(key);
 			if (nullptr != resource)
 				return resource;
 
-			resource = new T;
+			resource = std::make_shared<T>();
 			if (FAILED(resource->Load(path)))
 			{
 				MessageBox(nullptr, L"Image Load Failed!!", L"Error", MB_OK);
@@ -47,24 +38,24 @@ namespace js
 			resource->SetKey(key);
 			resource->SetPath(path);
 
-			mResources.insert(std::make_pair(key, dynamic_cast<Resource*>(resource)));
-			return dynamic_cast<T*>(resource);
+			mResources.insert(std::make_pair(key, std::dynamic_pointer_cast<Resource>(resource)));
+			return resource;
 		}
-
-		static void Release()
+		
+		template <typename T>
+		static void Insert(const std::wstring& key, std::shared_ptr<T> resource)
 		{
-			ResourceIter iter = mResources.begin();
-			for (; iter != mResources.end(); ++iter)
-			{
-				if (nullptr == iter->second)
-					continue;
+			if (nullptr == resource || key == L"")
+				return;
 
-				delete (iter->second);
-				iter->second = nullptr;
-			}
+			mResources.insert(std::make_pair(key, std::dynamic_pointer_cast<Resource>(resource)));
 		}
 
 	private:
-		static std::map<std::wstring, Resource*> mResources;
+		Resources() = delete;
+		~Resources() = delete;
+
+	private:
+		static std::map<std::wstring, std::shared_ptr<Resource>> mResources;
 	};
 }
