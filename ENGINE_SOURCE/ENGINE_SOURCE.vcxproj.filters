@@ -76,6 +76,10 @@
     <ClInclude Include="jsConstantBuffer.h">
       <Filter>Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="jsScript.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="jsPlayerScript.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jsGraphicDevice_DX11.cpp">
@@ -141,6 +145,10 @@
     <ClCompile Include="jsConstantBuffer.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="jsScript.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="jsPlayerScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">
@@ -193,6 +201,9 @@
     </Filter>
     <Filter Include="Scene\Base">
       <UniqueIdentifier>{2447cf89-ffb3-4056-9e0a-d04035698cc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts">
+      <UniqueIdentifier>{ddf28f7c-400b-4953-9ad7-0a575114f1bc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@
 #include "jsTransform.h"
 #include "jsMeshRenderer.h"
 #include "jsTexture.h"
+#include "jsPlayerScript.h"
 
 namespace js
 {
@@ -31,8 +32,17 @@ namespace js
 
 		Texture* texture = Resources::Load<Texture>(L"SmileTexture", L"Smile.png");
 		texture->BindShader(eShaderStage::PS, 0);
+		
+		PlayerScript* script = new PlayerScript();
+		object->AddComponent(script);
+
 
 		mPlayScene->AddGameObject(object, eLayerType::Player);
+
+
+		Vector2 vec2(1.0f, 1.0f);
+		material->SetData(eGPUParam::Vector2, &vec2);
+
 	}
 	void SceneManager::Update()
 	{

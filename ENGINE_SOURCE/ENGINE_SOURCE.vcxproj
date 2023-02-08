@@ -35,11 +35,13 @@
     <ClInclude Include="jsMath.h" />
     <ClInclude Include="jsMesh.h" />
     <ClInclude Include="jsMeshRenderer.h" />
+    <ClInclude Include="jsPlayerScript.h" />
     <ClInclude Include="jsRenderer.h" />
     <ClInclude Include="jsResource.h" />
     <ClInclude Include="jsResources.h" />
     <ClInclude Include="jsScene.h" />
     <ClInclude Include="jsSceneManager.h" />
+    <ClInclude Include="jsScript.h" />
     <ClInclude Include="jsShader.h" />
     <ClInclude Include="jsTexture.h" />
     <ClInclude Include="jsTime.h" />
@@ -58,11 +60,13 @@
     <ClCompile Include="jsMath.cpp" />
     <ClCompile Include="jsMesh.cpp" />
     <ClCompile Include="jsMeshRenderer.cpp" />
+    <ClCompile Include="jsPlayerScript.cpp" />
     <ClCompile Include="jsRenderer.cpp" />
     <ClCompile Include="jsResource.cpp" />
     <ClCompile Include="jsResources.cpp" />
     <ClCompile Include="jsScene.cpp" />
     <ClCompile Include="jsSceneManager.cpp" />
+    <ClCompile Include="jsScript.cpp" />
     <ClCompile Include="jsShader.cpp" />
     <ClCompile Include="jsTexture.cpp" />
     <ClCompile Include="jsTime.cpp" />

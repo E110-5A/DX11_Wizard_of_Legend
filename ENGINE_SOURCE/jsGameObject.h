@@ -1,5 +1,6 @@
 #pragma once
 #include "jsComponent.h"
+#include "jsScript.h"
 
 namespace js
 {
@@ -41,5 +42,6 @@ namespace js
 	private:
 		eState mState;
 		std::vector<Component*> mComponents;
+		std::vector<Component*> mScripts;
 	};
 }

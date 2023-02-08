@@ -64,7 +64,6 @@ namespace js::renderer
 		Resources::Insert<Mesh>(L"RectMesh", mesh);
 		mesh->CreateVertexBuffer(vertexes, NumOfVertex);
 
-
 		std::vector<UINT> indexes;
 
 		indexes.push_back(0);
@@ -77,7 +76,6 @@ namespace js::renderer
 
 		mesh->CreateIndexBuffer(indexes.data(), indexes.size());
 				
-		math::Vector4 pos(0.2f, 0.2f, 0.f, 0.f);
 		constantBuffers[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Transform);
 		constantBuffers[(UINT)eCBType::Transform]->Create(sizeof(TransformCB));
 
@@ -120,9 +118,9 @@ namespace js::renderer
 		vertexes[3].uv = Vector2(0.f, 1.f);
 
 		LoadShader();
+		SetUpState();
 		LoadBuffer();
 		LoadMaterial();
-		SetUpState();
 	}
 
 	void Release()

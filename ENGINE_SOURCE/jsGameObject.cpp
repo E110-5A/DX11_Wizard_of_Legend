@@ -6,6 +6,7 @@ namespace js
 		: mState(eState::Active)
 	{
 		mComponents.resize((UINT)eComponentType::End);
+		mScripts.resize((UINT)eComponentType::End);
 	}
 	GameObject::~GameObject()
 	{
@@ -19,6 +20,13 @@ namespace js
 
 			component->Initialize();
 		}
+		for (Component* scripts : mScripts)
+		{
+			if (scripts == nullptr)
+				continue;
+
+			scripts->Initialize();
+		}
 	}
 	void GameObject::Update()
 	{
@@ -28,6 +36,13 @@ namespace js
 				continue;
 
 			component->Update();
+		}
+		for (Component* scripts : mScripts)
+		{
+			if (scripts == nullptr)
+				continue;
+
+			scripts->Update();
 		}
 	}
 	void GameObject::FixedUpdate()
@@ -39,6 +54,13 @@ namespace js
 
 			component->FixedUpdate();
 		}
+		for (Component* scripts : mScripts)
+		{
+			if (scripts == nullptr)
+				continue;
+
+			scripts->FixedUpdate();
+		}
 	}
 	void GameObject::Render()
 	{
@@ -49,11 +71,26 @@ namespace js
 
 			component->Render();
 		}
+		for (Component* scripts : mScripts)
+		{
+			if (scripts == nullptr)
+				continue;
+
+			scripts->Render();
+		}
 	}
 	void GameObject::AddComponent(Component* component)
 	{
-		int order = component->GetOrder();
-		mComponents[order] = component;
-		mComponents[order]->SetOwner(this);
+		eComponentType order = component->GetOrder();
+		if (eComponentType::Script != order)
+		{
+			mComponents[(UINT)order] = component;
+			mComponents[(UINT)order]->SetOwner(this);
+		}
+		else
+		{
+			mScripts.push_back(component);
+			component->SetOwner(this);
+		}
 	}
 }

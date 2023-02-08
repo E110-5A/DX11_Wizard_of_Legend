@@ -24,16 +24,16 @@ namespace js::renderer
 
 	CBUFFER(TransformCB, CBSLOT_TRANSFORM)
 	{
-		Vector4 cbPos;
+		Vector4 Pos;
 	};
 	CBUFFER(MaterialCB, CBSLOT_MATERIAL)
 	{
-		int iData;
-		float fData;
+		int		iData;
+		float	fData;
 		Vector2 xy;
 		Vector3 xyz;
 		Vector4 xyzw;
-		Matrix matrix;
+		Matrix	matrix;
 	};
 
 	extern Vertex vertexes[NumOfVertex];

@@ -33,9 +33,11 @@ namespace js
 		Time::Update();
 		Input::Update();
 
+		SceneManager::Update();
 	}
 	void Application::FixedUpdate()
 	{
+		SceneManager::FixedUpdate();
 	}
 	void Application::Render()
 	{
