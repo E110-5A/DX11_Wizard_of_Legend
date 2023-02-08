@@ -18,6 +18,9 @@ cbuffer Tansform : register(b0)
     float3 cbPos;
 }
 
+SamplerState pointSampler : register(s0);
+SamplerState linearSampler : register(s1);
+SamplerState anisotropicSampler : register(s2);
 
 VTX_OUT VS_Test(VTX_IN _in)
 {

@@ -6,12 +6,15 @@ struct VTX_OUT
 };
 
 Texture2D defaultTexture : register(t0);
-SamplerState samplerState : register(s0);
+
+SamplerState pointSampler : register(s0);
+SamplerState linearSampler : register(s1);
+SamplerState anisotropicSampler : register(s2);
 
 float4 PS_Test(VTX_OUT _in) : SV_Target
 {	
     float4 color = (float) 0.f;
-    color = defaultTexture.Sample(samplerState, _in.vUV);
+    color = defaultTexture.Sample(anisotropicSampler, _in.vUV);
     
     return color;
 }

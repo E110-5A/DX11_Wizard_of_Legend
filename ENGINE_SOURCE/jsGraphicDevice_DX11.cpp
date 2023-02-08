@@ -120,6 +120,12 @@ namespace js::graphics
 			return false;
 		return true;
 	}
+	bool GraphicDevice_DX11::CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc, ID3D11SamplerState** ppSamplerState)
+	{
+		if (FAILED(mDevice->CreateSamplerState(pSamplerDesc, ppSamplerState)))
+			return false;
+		return true;
+	}
 	void GraphicDevice_DX11::BindPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY topology)
 	{
 		mContext->IASetPrimitiveTopology(topology);
@@ -155,7 +161,7 @@ namespace js::graphics
 		memcpy(sub.pData, data, size);
 		mContext->Unmap(buffer, 0);
 	}
-	void GraphicDevice_DX11::SetConstantBuffer(eShaderStage stage, enums::eCBType type, ID3D11Buffer* buffer)
+	void GraphicDevice_DX11::SetConstantBuffer(eShaderStage stage, eCBType type, ID3D11Buffer* buffer)
 	{
 		switch (stage)
 		{
@@ -207,12 +213,41 @@ namespace js::graphics
 			break;
 		}
 	}
-	void GraphicDevice_DX11::BindSamplers()
+	void GraphicDevice_DX11::BindSamplers(eShaderStage stage, UINT slot, UINT numSamplers, ID3D11SamplerState* const* ppSamplers)
 	{
+		switch (stage)
+		{
+		case eShaderStage::VS:
+			mContext->VSSetSamplers(slot, numSamplers, ppSamplers);
+			break;
+		case eShaderStage::HS:
+			mContext->HSSetSamplers(slot, numSamplers, ppSamplers);
+			break;
+		case eShaderStage::DS:
+			mContext->DSSetSamplers(slot, numSamplers, ppSamplers);
+			break;
+		case eShaderStage::GS:
+			mContext->GSSetSamplers(slot, numSamplers, ppSamplers);
+			break;
+		case eShaderStage::PS:
+			mContext->PSSetSamplers(slot, numSamplers, ppSamplers);
+			break;
+		case eShaderStage::CS:
+			mContext->CSSetSamplers(slot, numSamplers, ppSamplers);
+			break;
+		default:
+			break;
+		}
 	}
-	void GraphicDevice_DX11::BindsSamplers()
+	void GraphicDevice_DX11::BindsSamplers(UINT slot, UINT numSamplers, ID3D11SamplerState* const* ppSamplers)
 	{
+		mContext->VSSetSamplers(slot, numSamplers, ppSamplers);
+		mContext->HSSetSamplers(slot, numSamplers, ppSamplers);
+		mContext->DSSetSamplers(slot, numSamplers, ppSamplers);
+		mContext->GSSetSamplers(slot, numSamplers, ppSamplers);
+		mContext->PSSetSamplers(slot, numSamplers, ppSamplers);
 	}
+
 	void GraphicDevice_DX11::Clear()
 	{
 		FLOAT backgroundColor[4] = { 0.2f, 0.2f, 0.2f, 1.0f };

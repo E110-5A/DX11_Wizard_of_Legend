@@ -28,6 +28,14 @@ namespace js::graphics
 		Count,
 	};
 
+	enum class eSamplerType
+	{
+		Point,
+		Linear,
+		Anisotropic,
+		End,
+	};
+
 	struct GPUBuffer
 	{
 		enum class eType

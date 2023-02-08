@@ -24,6 +24,7 @@ namespace js::renderer
 
 	extern Vertex vertexes[NumOfVertex];
 	extern ConstantBuffer* constantBuffers[];
+	extern Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerStates[];
 	
 	void Initialize();
 	void Release();

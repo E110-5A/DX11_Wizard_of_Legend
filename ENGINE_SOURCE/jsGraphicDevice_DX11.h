@@ -1,6 +1,7 @@
 #pragma once
 #include "jsGraphics.h"
 
+using namespace js::enums;
 
 namespace js::graphics
 {
@@ -16,7 +17,7 @@ namespace js::graphics
 		bool CreateBuffer(D3D11_BUFFER_DESC* desc, D3D11_SUBRESOURCE_DATA* data, ID3D11Buffer** buffer);
 		bool CreateVertexShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11ClassLinkage* pClassLinkage, ID3D11VertexShader** ppVertexShader);
 		bool CreatePixelShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11ClassLinkage* pClassLinkage, ID3D11PixelShader** ppPixelShader);
-
+		bool CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc, ID3D11SamplerState** ppSamplerState);
 
 		void BindPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY topology);
 		void BindInputLayout(ID3D11InputLayout* pInputLayout);
@@ -26,11 +27,11 @@ namespace js::graphics
 		void BindPixelShader(ID3D11PixelShader* pPixelShader, ID3D11ClassInstance* const* ppClassInstances, UINT numClassInstances);
 		void BindViewports(D3D11_VIEWPORT* viewPort);
 		void BindConstantBuffer(ID3D11Buffer* buffer, void* data, UINT size);
-		void SetConstantBuffer(eShaderStage stage, enums::eCBType type, ID3D11Buffer* buffer);
+		void SetConstantBuffer(eShaderStage stage, eCBType type, ID3D11Buffer* buffer);
 
 		void SetShaderResource(eShaderStage stage, UINT slot, ID3D11ShaderResourceView* const* ppShdaerResourceViews);
-		void BindSamplers();
-		void BindsSamplers();
+		void BindSamplers(eShaderStage stage, UINT slot, UINT numSamplers, ID3D11SamplerState* const* ppSamplers);
+		void BindsSamplers(UINT slot, UINT numSamplers, ID3D11SamplerState* const* ppSamplers);
 
 		void Clear();
 		void AdjustViewPorts();
