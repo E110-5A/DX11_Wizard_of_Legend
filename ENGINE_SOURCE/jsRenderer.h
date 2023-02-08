@@ -23,8 +23,6 @@ namespace js::renderer
 	};
 
 	extern Vertex vertexes[NumOfVertex];
-	extern Mesh* mesh;
-	extern Shader* shader;
 	extern ConstantBuffer* constantBuffers[];
 	
 	void Initialize();

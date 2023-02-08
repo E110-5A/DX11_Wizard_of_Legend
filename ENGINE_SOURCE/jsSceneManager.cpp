@@ -21,9 +21,11 @@ namespace js
 		object->AddComponent(transform);
 
 		MeshRenderer* meshRenderer = new MeshRenderer();
-		meshRenderer->SetMesh(renderer::mesh);
-		meshRenderer->SetShader(renderer::shader);
 		object->AddComponent(meshRenderer);
+		Mesh* mesh = Resources::Find<Mesh>(L"RectMesh");
+		Shader* shader = Resources::Find<Shader>(L"RectShader");
+		meshRenderer->SetMesh(mesh);
+		meshRenderer->SetShader(shader);
 
 		Texture* texture = Resources::Load<Texture>(L"SmileTexture", L"Smile.png");
 		texture->BindShader(eShaderStage::PS, 0);

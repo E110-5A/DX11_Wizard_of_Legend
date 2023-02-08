@@ -3,6 +3,7 @@
 #include "jsTime.h"
 #include "jsInput.h"
 #include "jsSceneManager.h"
+#include "jsResources.h"
 
 namespace js
 {
@@ -56,7 +57,7 @@ namespace js
 	}
 	void Application::Release()
 	{
-		renderer::Release();
+		Resources::Release();
 	}
 
 	void Application::SetWindow(HWND hwnd, UINT width, UINT height)

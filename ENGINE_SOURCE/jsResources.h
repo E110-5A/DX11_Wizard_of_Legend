@@ -1,9 +1,9 @@
 #pragma once
 #include "jsEngine.h"
+#include "jsResource.h"
 
 namespace js
 {
-	class Resource;
 	class Resources
 	{
 	public:
